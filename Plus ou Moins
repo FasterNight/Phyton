@@ -1,1 +1,36 @@
+import random
+
+def jeu_de_devinette():
+    print("Bienvenue dans le jeu de devinette !")
+
+    borne_min = int(input("Entrez la borne minimale : "))
+    borne_max = int(input("Entrez la borne maximale : "))
+    
+    nombre_secret = random.randint(borne_min, borne_max)
+
+    essais_max = 10
+    essais = 0
+
+    while essais < essais_max:
+        guess = int(input(f"Devinez le nombre ({borne_min}-{borne_max}) : "))
+        essais += 1
+
+        if guess == nombre_secret:
+            print(f"Bravo ! Vous avez deviné le nombre en {essais} essais.")
+            break
+        elif guess < nombre_secret:
+            print("Plus grand. Essayez à nouveau.")
+        else:
+            print("Plus petit. Essayez à nouveau.")
+
+    else:
+        print(f"Dommage ! Vous avez dépassé le nombre maximum d'essais. Le nombre secret était {nombre_secret}.")
+
+    rejouer = input("Voulez-vous jouer à nouveau ? (Oui/Non) : ").lower()
+    if rejouer == "oui":
+        jeu_de_devinette()
+    else:
+        print("Merci d'avoir joué !")
+
+jeu_de_devinette()
 

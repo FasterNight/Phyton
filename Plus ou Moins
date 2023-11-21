@@ -1,52 +1,57 @@
 import random
 
+# Fonction pour demander un entier à l'utilisateur avec gestion des erreurs
 def AskInt(sMessage: str) -> int:
     while True:
         try:
             print(sMessage)
             iInput: int = int(input())
             return iInput
-         
         except ValueError:
             print("Veuillez entrer des nombres valides.")
-        
 
-borne_min: int = AskInt("Veuillez entrer la borne minimale")
-borne_max: int = AskInt("Veuillez entrer la borne maximale")
+# Fonction principale du jeu de devinette
+def Guess_Game():
+    while True:
+        # On demande à l'utilisateur de spécifier les bornes du nombre mystère
+        borne_min: int = AskInt("Veuillez entrer la borne minimale")
+        borne_max: int = AskInt("Veuillez entrer la borne maximale")
 
+        # On génère aléatoirement le nombre mystère entre les bornes spécifiées
+        nombre_secret = random.randint(borne_min, borne_max)
 
+        # On demande à l'utilisateur de spécifier le nombre d'essais maximum
+        essais_max = AskInt("Choisissez le nombre d'essais maximum")
 
+        # Initialisation du compteur d'essais
+        essais = 0
 
-def jeu_de_devinette():
-    nombre_secret = random.randint(borne_min, borne_max)
+        # Boucle principale du jeu
+        while essais < essais_max:
+            try:
+                essais += 1
+                # On demande à l'utilisateur de deviner le nombre mystère
+                guess: int = AskInt("Veuillez deviner le nombre mystère")
+                if guess == nombre_secret:
+                    print(f"Bravo ! Vous avez deviné le nombre en {essais} essais.")
+                    break
+                elif guess < nombre_secret:
+                    print("Plus grand. Essayez à nouveau.")
+                else:
+                    print("Plus petit. Essayez à nouveau.")
+            except ValueError:
+                print("Veuillez entrer un nombre valide.")
 
-    essais_max = 10
-    essais = 0
+        else:
+            # Message affiché si le joueur a dépassé le nombre maximum d'essais
+            print(f"Dommage ! Vous avez dépassé le nombre maximum d'essais. Le nombre mystère était {nombre_secret}.")
 
-    while essais < essais_max:
-        try:
-            
-            essais += 1
-            guess: int = AskInt("Veuillez deviner le nombre mystère")
-            if guess == nombre_secret:
-                print(f"Bravo ! Vous avez deviné le nombre en {essais} essais.")
-                break
-            elif guess < nombre_secret:
-                print("Plus grand. Essayez à nouveau.")
-            else:
-                print("Plus petit. Essayez à nouveau.")
-        except ValueError:
-            print("Veuillez entrer un nombre valide.")
-            AskInt()
+        # On demande au joueur s'il veut rejouer
+        rejouer = input("Voulez-vous jouer à nouveau ? (Oui/Non) : ").lower()
+        if rejouer != "oui":
+            # Si la réponse n'est pas "oui", on sort de la boucle et on termine le jeu
+            print("Merci d'avoir joué !")
+            break
 
-    else:
-        print(f"Dommage ! Vous avez dépassé le nombre maximum d'essais. Le nombre secret était {nombre_secret}.")
-
-    rejouer = input("Voulez-vous jouer à nouveau ? (Oui/Non) : ").lower()
-    if rejouer == "oui":
-        jeu_de_devinette()
-    else:
-        print("Merci d'avoir joué !")
-        exit()
-
-jeu_de_devinette()
+# Lancer le jeu
+Guess_Game()

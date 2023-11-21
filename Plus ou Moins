@@ -47,5 +47,6 @@ def jeu_de_devinette():
         jeu_de_devinette()
     else:
         print("Merci d'avoir joué !")
+        exit()
 
 jeu_de_devinette()

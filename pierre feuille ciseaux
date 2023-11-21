@@ -1,1 +1,29 @@
-# Phyton
+def pfc():
+    choix_joueur = int(input("Choisissez pierre(1) feuille(2) ou ciseaux(3)"))
+    choix_bot = random.randint(1, 3)
+    if choix_bot == 1:
+        print("L'ordinateur choisis pierre")
+        if choix_joueur == 1:
+            print("Égalité")
+        elif choix_joueur == 2:
+            print("Vous avez gagné")
+        else:
+            print("Vous avez perdu")
+    elif choix_bot == 2:
+        print("L'ordinateur choisis feuille")
+        if choix_joueur == 2:
+            print("Égalité")
+        elif choix_joueur == 3:
+            print("Vous avez gagné")
+        else:
+            print("Vous avez perdu")
+    else:
+        print("L'ordinateur choisis ciseaux")
+        if choix_joueur == 3:
+            print("Égalité")
+        elif choix_joueur == 1:
+            print("Vous avez gagné")
+        else:
+            print("Vous avez perdu")
+
+pfc()

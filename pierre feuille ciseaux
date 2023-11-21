@@ -1,3 +1,5 @@
+import random
+
 def pfc():
     choix_joueur = int(input("Choisissez pierre(1) feuille(2) ou ciseaux(3)"))
     choix_bot = random.randint(1, 3)

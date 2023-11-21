@@ -1,22 +1,23 @@
 import random
 
-def AskInt() :
-    borne_min = int(input("Entrez la borne minimale : "))
-    borne_max = int(input("Entrez la borne maximale : "))
-    guess = int(input(f"Devinez le nombre ({borne_min}-{borne_max}) : "))
-
-def pas_de_lettres_svp():
+def AskInt(sMessage: str) -> int:
     while True:
         try:
-           AskInt()
+            print(sMessage)
+            iInput: int = int(input())
+            return iInput
+         
         except ValueError:
             print("Veuillez entrer des nombres valides.")
+        
+
+borne_min: int = AskInt("Veuillez entrer la borne minimale")
+borne_max: int = AskInt("Veuillez entrer la borne maximale")
+
+
+
 
 def jeu_de_devinette():
-    print("Bienvenue dans le jeu de devinette !")
-
-    borne_min, borne_max = pas_de_lettres_svp()
-
     nombre_secret = random.randint(borne_min, borne_max)
 
     essais_max = 10
@@ -24,9 +25,9 @@ def jeu_de_devinette():
 
     while essais < essais_max:
         try:
-            AskInt
+            
             essais += 1
-
+            guess: int = AskInt("Veuillez deviner le nombre mystère")
             if guess == nombre_secret:
                 print(f"Bravo ! Vous avez deviné le nombre en {essais} essais.")
                 break
@@ -36,6 +37,7 @@ def jeu_de_devinette():
                 print("Plus petit. Essayez à nouveau.")
         except ValueError:
             print("Veuillez entrer un nombre valide.")
+            AskInt()
 
     else:
         print(f"Dommage ! Vous avez dépassé le nombre maximum d'essais. Le nombre secret était {nombre_secret}.")
@@ -45,6 +47,5 @@ def jeu_de_devinette():
         jeu_de_devinette()
     else:
         print("Merci d'avoir joué !")
-
 
 jeu_de_devinette()

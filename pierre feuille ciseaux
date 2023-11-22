@@ -1,31 +1,48 @@
 import random
+# Fonction pour demander un entier à l'utilisateur avec gestion des erreurs
+def AskInt(sMessage: str) -> int:
+    while True:
+        try:
+            print(sMessage)
+            iInput: int = int(input())
+            return iInput
+        except ValueError:
+            print("Veuillez entrer des nombres valides.")
+def R_P_S():
+    while True: 
+        print("Bienvenue dans le jeu Pierre-Feuille-Ciseaux !")
 
-def pfc():
-    choix_joueur = int(input("Choisissez pierre(1) feuille(2) ou ciseaux(3)"))
-    choix_bot = random.randint(1, 3)
-    if choix_bot == 1:
-        print("L'ordinateur choisis pierre")
-        if choix_joueur == 1:
-            print("Égalité")
-        elif choix_joueur == 2:
-            print("Vous avez gagné")
-        else:
-            print("Vous avez perdu")
-    elif choix_bot == 2:
-        print("L'ordinateur choisis feuille")
-        if choix_joueur == 2:
-            print("Égalité")
-        elif choix_joueur == 3:
-            print("Vous avez gagné")
-        else:
-            print("Vous avez perdu")
-    else:
-        print("L'ordinateur choisis ciseaux")
-        if choix_joueur == 3:
-            print("Égalité")
-        elif choix_joueur == 1:
-            print("Vous avez gagné")
-        else:
-            print("Vous avez perdu")
+        # Demander au joueur de choisir entre Pierre (1), Feuille (2) ou Ciseaux (3)
+        choix_joueur: int = AskInt("Choisissez :\n1. Pierre\n2. Feuille\n3. Ciseaux\n")
+        
+    
 
-pfc()
+        # Générer aléatoirement le choix de l'ordinateur
+        choix_ordi = random.randint(1, 3)
+    
+        # Afficher les choix
+        print("Vous avez choisi :", choix_joueur)
+        print("L'ordinateur a choisi :", choix_ordi)
+    
+        # Matrice pour les résultats
+        resultats=[
+        ["Égalité !", "Vous avez perdu !", "Vous avez gagné !"],
+        ["Vous avez gagné !", "Égalité !","Vous avez perdu !"],
+        ["Vous avez perdu !", "Vous avez gagné !", "Égalité !"]
+        ]   
+        # Comparer les resultats grace à la matrice 
+        resultat=resultats[choix_joueur-1][choix_ordi-1]
+        print(resultat)
+        
+        rejouer = input("Voulez-vous jouer à nouveau ? (Oui/Non) : ").lower()
+        if rejouer != "oui":
+            print("Merci d'avoir joué !")
+            break
+
+  
+
+R_P_S() 
+
+ 
+
+  

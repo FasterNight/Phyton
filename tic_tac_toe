@@ -4,70 +4,16 @@ def AskInt(sMessage: str) -> int:
         try:
             print(sMessage)
             iInput: int = int(input())
-            AskIntInRange()
             return iInput
         except ValueError:
             print("Veuillez entrer des nombres valides.")
 
 def AskIntInRange(sMessage: str, iMin: int, iMax: int) -> int:
     while True:
-        try:
-            value: int = AskInt(sMessage)
-            iMax == 2,
-            iMin == 0,
-            if value <= iMax and value >= iMin:
-                return(value)
-        except ValueError:
-            print("Veuillez entrer des nombres valides.")
+        value: int = AskInt(sMessage)
+        
+        if value >= iMin and value <= iMax:
+            return value
+        
+        print("Veuillez entrer un nombre entre " + str(min) + " et " + str(max))
 
-def show_table(plateau):
-    for ligne in plateau:
-        print(" | ".join(ligne))
-        print("-" * 9)
-
-def check_win(plateau, symbole):
-    # Vérifier les lignes et les colonnes
-    for i in range(3):
-        if all(plateau[i][j] == symbole for j in range(3)) or all(plateau[j][i] == symbole for j in range(3)):
-            return True
-
-    # Vérifier les diagonales
-    if all(plateau[i][i] == symbole for i in range(3)) or all(plateau[i][2 - i] == symbole for i in range(3)):
-        return True
-
-    return False
-
-def play_tic_tac_toe():
-    while True:
-        plateau = [[" " for _ in range(3)] for _ in range(3)]
-        symbole_actuel = "X"
-
-        for _ in range(9):
-            show_table(plateau)
-
-            # Demander au joueur de saisir sa position
-            ligne: int = AskInt("Entrez le numéro de ligne (0, 1 ou 2) : ")
-            colonne: int = AskInt("Entrez le numéro de colonne (0, 1 ou 2) : ")
-           
-
-            # Vérifier si la case est vide
-            if plateau[ligne][colonne] == " ":
-                plateau[ligne][colonne] = symbole_actuel
-            else:
-                print("La case est déjà occupée. Choisissez une autre case.")
-                continue
-
-            # Vérifier s'il y a une victoire
-            if check_win(plateau, symbole_actuel):
-                show_table(plateau)
-                print(f"Le joueur {symbole_actuel} a gagné !")
-                break
-
-            # Changer de joueur
-            symbole_actuel = "O" if symbole_actuel == "X" else "X"
-        else:
-            show_table(plateau)
-            print("Match nul !")
-
-if __name__ == "__main__":
-    play_tic_tac_toe()

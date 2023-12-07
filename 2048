@@ -1,0 +1,174 @@
+# 2048
+
+'''
+Fichiers a présenter: 2048, Fonctions_variables; working on
+'''
+
+
+import random
+import Fonctions_variables
+from pynput import keyboard
+from pynput.keyboard import Key
+import os
+
+# Variables
+Restart: str = ["Y","Yes","N","No"]
+
+
+def GetGameBoard(Size): #returns board list
+    board = []
+    for i in range(Size):
+        line = []
+        for j in range(Size):
+            line.append(" ")
+        board.append(line)
+    return board
+
+def PrintBoard(board, Size):
+    i:int = 0
+    while i < Size:
+        j:int = 0
+        
+        while j < Size:
+            print("[" + str(board[i][j]) + "]", end="") #end is a defined parameter by python
+            j += 1
+        
+        print("") #new line (/n)
+        i = i + 1
+
+def AvailableCoordinates (Board, Size) -> tuple [int,int]: # All available board coordinates
+    AvailableCoordinates = []
+    for i in range(Size):
+        for j in range(Size):
+            if Board[i][j] == " ":
+                AvailableCoordinates.append((i, j))
+    return AvailableCoordinates
+
+def RandomNumber (): # Which to spawn on every turn ? (2 or 4)
+    r = random.randrange(1,10)
+    if r == 10:
+        Number = 4
+    else:
+        Number = 2
+    return Number
+
+# Fonction de vérification de game over (=cant do anything) /a faire
+def GameoverCheck ():
+    pass
+
+# Fonction de vérification de victoire (=2048)/a faire
+def VictoryCheck ():
+    pass
+
+# récupération de la flèche 
+def ArrowKeysInput(key):
+    if key == Key.right: 
+        arrows:int = right() #3
+        return arrows and exit()
+        
+    elif key == Key.left:
+        arrows:int = left() #0
+        return arrows and exit()
+        
+    elif key == Key.up:
+        arrows:int = up() #1
+        return arrows and exit()
+        
+    elif key == Key.down:
+        arrows:int = down() #2
+        return arrows and exit()
+        
+    elif key == Key.esc:
+        exit()
+    exit()
+
+# Déplacement vers la droite 
+def right():
+    right:int = 3
+    return right
+
+#Déplacement vers le haut  
+def up():
+    top:int = 1
+    return top
+
+#Déplacement vers le bas
+def down():
+    down:int = 2
+    return down
+
+#Déplacement vers la gauche 
+def left(): 
+    left:int = 0
+    return left
+
+
+Size:int = Fonctions_variables.AskInt("Choisissez la taille de votre plateau de jeu:")
+CurrentGameBoard=GetGameBoard(Size) #returns board list
+
+
+def Game ():
+    # Initialisation
+    NumberBlock:int = 0
+
+    # Spawn First Number Block
+    #RowStart, ColumnStart = random.choice(AvailableCoordinates(CurrentGameBoard, Size))
+    #NumberStart: int = RandomNumber()
+
+
+    while NumberBlock < 2048:
+        # Respawn a block
+        #row, column = random.choice(AvailableCoordinates(CurrentGameBoard, Size))
+
+        #test, toujours met la case au meme endroit
+        #-----
+        row, column = (1,1)
+        RNumber:int = RandomNumber()
+        CurrentGameBoard[row][column] = RNumber
+        
+        row, column = (1,0)
+        RNumber:int = RandomNumber()
+        CurrentGameBoard[row][column] = RNumber
+        #-----
+
+        PrintBoard(CurrentGameBoard,Size)
+
+        # test moche sans keyboardlistener
+        x = Fonctions_variables.AskInt("Entrez 1 pour bouger les cases vers la gauche")
+        if x == 1:
+            #os.system('cls')
+            '''
+            #code d'un ami a coté, a analyzer et adapter
+            for i in range (len(CurrentGameBoard)):
+                for j in range(len(CurrentGameBoard)):
+                    
+                    if CurrentGameBoard[i][j] == CurrentGameBoard[i][j - 1] and CurrentGameBoard[i][j] != 0:
+                        CurrentGameBoard[i][j] *= 2
+                        #CurrentGameBoard[i][j - 1] = 0
+                #for i in range(len(CurrentGameBoard)):
+                #    CurrentGameBoard[i].sort(key=lambda x: 1 if x == 0 else 0)
+            '''
+
+            PrintBoard(CurrentGameBoard,Size)
+
+            break
+        else:
+            #os.system('cls')
+            break
+        
+        '''
+        #calls the ArrowKeysInput function to activate block movement based on user input
+        with keyboard.Listener(on_release=ArrowKeysInput) as listener:
+            listener.join()
+
+                #if arrows == 1: #test
+                #    print("1")
+                #key=lambda
+        '''
+
+        break
+
+
+
+if __name__ == "__main__":
+    Game()
